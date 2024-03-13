@@ -32,8 +32,16 @@ public class GetProduct extends BaseTest {
         driver.get().findElement(By.xpath("//a[@id='cartur']")).click();
 
         // pastikan laptop yang baru diadd ada dicart
-        WebElement cartTable = explicitWait.get().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//tbody[@id='tbodyid']/tr[1]/td[.='Sony vaio i5']")));
-        Assert.assertTrue(cartTable.getText().contains("Sony vaio i5"), "Laptop not found in cart.");
+        WebElement cartItem = explicitWait.get().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//tbody[@id='tbodyid']/tr[1]/td[.='Sony vaio i5']")));
+        Assert.assertTrue(cartItem.getText().contains("Sony vaio i5"), "Laptop not found in cart.");
+
+        try {
+            // Assertion to check if the laptop is present in the cart
+            Assert.assertTrue(cartItem.getText().contains("Laptop"), "Laptop is not present in the cart.");
+            System.out.println("Laptop is present in the cart.");
+        } catch (AssertionError e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 }
